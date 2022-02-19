@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box; 
+  }
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+   /* background-image: url(C:/Users/P13A-97-SOATOAVINA/Pictures/blender/images.jpg);*/
+  }
+  #main {
+    display: flex;
+    flex: 1;
+  }
+  #article {
+    flex: 0 0 15vw;
+    order: 1;
+    background: #ecfffc;
+  }
+  #nav {
+    flex: 0 0 27vw;
+    height:37vw
+  } 
+  #aside {
+    flex: 0 0 43vw;
+    height:37vw
+  }
+  #nav {
+    background: #D7E8D4;
+    order: 3;
+  }
+  #quatre {
+    background: #ecfffc;
+    order: 4;
+    flex: 0 0 15vw
+  }
+  #aside {
+    background: beige;
+    order: 2;
+  }
+  #header, #footer {
+    background: #ecfffc;
+    height: 13vh;
+  }
+  #header, #footer, #article, #nav, #aside {
+    padding: 1em;
+  }

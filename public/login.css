@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box; 
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 0;
+ /* background-image: url(C:/Users/P13A-97-SOATOAVINA/Pictures/blender/images.jpg);*/
+}
+#main {
+  display: flex;
+  flex: 1;
+}
+#article {
+  flex: 0 0 18vw;
+  order: 1;
+  background: #ecfffc;
+}
+#nav {
+  flex: 0 0 27vw;
+  height:37vw
+} 
+#aside {
+  flex: 0 0 37vw;
+  height:37vw
+}
+#nav {
+  background-image:url("/../assets/img/District.png");
+  order: 3;
+}
+#nav img{
+ 
+  margin-top:-16px;
+}
+#quatre {
+  background: #ecfffc;
+  order: 4;
+  flex: 0 0 18vw
+}
+#aside {
+  background: rgb(255,255,208);
+  order: 2;
+}
+#header, #footer {
+  background: #ecfffc;
+  height: 13vh;
+}
+#header, #footer, #article, #nav, #aside {
+  padding: 1em;
+}

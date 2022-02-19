@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box; 
+  }
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+  }
+  #main {
+    display: flex;
+    flex: 1;
+  }
+  #article {
+    flex: 1;
+    order: 1;
+  }
+  #nav, 
+  #aside {
+    flex: 0 0 20vw;
+  }
+  #nav {
+    background: #D7E8D4;
+    order: 3;
+  }
+  #aside {
+    background: beige;
+    order: 2;
+  }
+  #header, #footer {
+    background: yellowgreen;
+    height: 20vh;
+  }
+ #header,#footer,#article,#nav,#aside {
+    padding: 1em;
+  }
