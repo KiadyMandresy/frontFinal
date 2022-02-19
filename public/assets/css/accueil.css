@@ -1,0 +1,29 @@
+#tab{
+    flex: 0 0 55vw;
+    order: 1;
+    background: red;
+}
+#map
+{
+    flex: 0 0 35vw;
+    order: 3;
+    background: yellow;
+}
+#espace
+{
+    flex: 0 0 10vw;
+    order: 2;
+    background: white;
+}
+#map,#tab,#esapce{
+    height: 40vw;
+
+}
+#main1 {
+    display: flex;
+    flex: 1;
+  }
+#footerAccueil {
+    background: rgb(158,199,243);
+    height: 10vh;
+  }

@@ -15,7 +15,7 @@ body {
 #article {
   flex: 0 0 18vw;
   order: 1;
-  background: #ecfffc;
+  background: white;
 }
 #nav {
   flex: 0 0 27vw;
@@ -26,15 +26,11 @@ body {
   height:37vw
 }
 #nav {
-  background-image:url("/../assets/img/District.png");
+  background-image:url("/../assets/img/login.png");
   order: 3;
 }
-#nav img{
- 
-  margin-top:-16px;
-}
 #quatre {
-  background: #ecfffc;
+  background: white;
   order: 4;
   flex: 0 0 18vw
 }
@@ -43,9 +39,45 @@ body {
   order: 2;
 }
 #header, #footer {
-  background: #ecfffc;
+  background: white;
   height: 13vh;
 }
 #header, #footer, #article, #nav, #aside {
   padding: 1em;
+}
+#headerAccueil{
+  background:  rgb(158,199,243);
+  height: 25vh;
+}
+#headerAccueil{
+  padding: 1em;
+}
+#search{
+  background:  rgb(0, 195, 255);
+  height: 15vh;
+}
+#search{
+  padding: 1em;
+}
+
+.sign {
+  font-size: calc(1.475rem + 2.7vw);
+  font-weight: 400;
+  line-height: 1.2;
+  font-weight: bolder !important;
+  color: rgb(3,21,63);
+  margin-top: -15px;
+}
+@media (min-width: 1200px) {
+  .sign {
+    font-size: 3.8rem;
+  }
+}
+
+.reg
+{
+  color:  rgb(255,255,208);
+  font-weight: 400;
+  font-size: 1.8rem;
+  margin-top: -20px;
 }
