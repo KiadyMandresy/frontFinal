@@ -7,35 +7,35 @@ class Login extends Component{
         return (
             <div>
             <div id="header"></div>
-            <div id="main">
-              <div id="article"></div>
-              <div id="nav">
-              </div>
-              <div id="aside">
-                <div class="row justify-content-center">
-                  
-                        <div class="login-wrap p-4 p-md-5">
-                    <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-user-o"></span>
-                    </div>
-                    <h3 class="text-center mb-4">Se connecter</h3>
-                            <form action="#" class="login-form">
-                        <div class="form-group">
-                            <Input type="text" class="form-control rounded-left" placeholder="votre nom ou votre mail" />
+                <div id="main">
+                    <div id="article"></div>
+                        <div id="nav">
                         </div>
-                    <div class="form-group d-flex">
-                    <Input type="password" class="form-control rounded-left" placeholder="votre mot de passe" />
+                        <div id="aside">
+                            <div className="row justify-content-center">
+                            
+                                    <div className="login-wrap p-4 p-md-5">
+                                <div className="icon d-flex align-items-center justify-content-center">
+                                    <span className="fa fa-user-o"></span>
+                                </div>
+                                <h3 className="text-center mb-4">Se connecter</h3>
+                                        <form action="#" className="login-form">
+                                    <div className="form-group">
+                                        <Input type="text" className="form-control rounded-left" placeholder="votre nom ou votre mail" />
+                                    </div>
+                                <div className="form-group d-flex">
+                                <Input type="password" className="form-control rounded-left" placeholder="votre mot de passe" />
+                                </div>
+                                <div className="form-group">
+                                    <button type="submit" className="form-control btn btn-primary rounded submit px-3">Connection</button>
+                                </div>
+                            
+                            </form>
+                            </div>
+                                
+                            </div>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Connection</button>
-                    </div>
-                
-                </form>
-                </div>
-                    
-                </div>
-              </div>
-              <div id="quatre"> </div>
+                <div id="quatre"> </div>
             </div>
             <div id="footer"></div>
            
