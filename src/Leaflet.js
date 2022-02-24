@@ -7,7 +7,7 @@ class Leaflet extends Component{
    
     render()
     {
-        const position = [51.505, -0.09]
+        const position = [-18.234567,47.2345677]
         return (
             
             <MapContainer  center={position} zoom={13} scrollWheelZoom={false}>
