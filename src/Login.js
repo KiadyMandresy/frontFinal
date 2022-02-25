@@ -1,7 +1,52 @@
 import React, { Component} from 'react';
 import {Button, Container, FormGroup , Input , Form } from 'reactstrap';
-
-class Login extends Component{
+class Login extends Component{  
+    constructor(props){
+        super(props);
+        this.onChangeMail=this.onChangeMail.bind(this);
+        this.onChangeMdp=this.onChangeMdp.bind(this);
+        this.loginFonction=this.loginFonction.bind(this);
+        this.state={
+            mail:"",
+            mdp:"",
+            erreur:""
+        };
+    }
+    onChangeMail(e)
+    {
+        this.setState({
+            mail: e.target.value
+        });
+    }
+    onChangeMdp(e)
+    {
+        this.setState({
+            mdp: e.target.value
+        });
+    }
+    async loginFonction(event)
+    {
+        fetch("http://localhost:2004/chefRegions/"+this.state.mail+"/"+this.state.mdp).then((res)=>{
+            if(res.ok){
+                return res.json();
+                console.log(res);
+            }
+            throw res;
+        })
+        .then((data)=>{
+            if(data.valide==true)
+            {
+                
+                localStorage.setItem("token",data.token);
+                this.props.history.push("/Accueil/"+data.chef.idReg);
+            }
+            else if(data.valide==false)
+            {
+                this.setState({
+                    erreur:data.erreur});
+            }
+        })
+    }
     render()
     {
         return (
@@ -19,18 +64,19 @@ class Login extends Component{
                         <span class="fa fa-user-o"></span>
                     </div>
                     <h3 class="text-center mb-4">Se connecter</h3>
-                            <form action="#" class="login-form">
+                          
                         <div class="form-group">
-                            <Input type="text" class="form-control rounded-left" placeholder="votre nom ou votre mail" />
+                            <Input type="text" class="form-control rounded-left" placeholder="votre nom ou votre mail" value={this.state.mail} onChange={this.onChangeMail} />
                         </div>
                     <div class="form-group d-flex">
-                    <Input type="password" class="form-control rounded-left" placeholder="votre mot de passe" />
+                    <Input type="password" class="form-control rounded-left" value={this.state.mdp} onChange={this.onChangeMdp} placeholder="votre mot de passe" />
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Connection</button>
+                        <button type="submit" class="form-control btn btn-primary rounded submit px-3" onClick={this.loginFonction}>Connection</button>
                     </div>
+                    <br></br>
+                  <p className='erreur'> {this.state.erreur} </p> 
                 
-                </form>
                 </div>
                     
                 </div>
