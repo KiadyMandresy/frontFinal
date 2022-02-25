@@ -22,6 +22,7 @@ class App  extends Component {
         <Route path='/Fiche' exact={true} component={Fiche} />
       </Switch>
     </Router>
+    
   );
   }
 }

@@ -6,7 +6,7 @@ class Login extends Component{
     {
         return (
             <div>
-            <div id="header"></div>
+            <div id="headerAccueil"></div>
                 <div id="main">
                     <div id="article"></div>
                         <div id="nav">
