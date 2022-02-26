@@ -63,6 +63,9 @@ body {
 #search{
   padding: 1em;
 }
+.erreur{
+  color:red;
+}
 
 .sign {
   font-size: calc(1.475rem + 2.7vw);
