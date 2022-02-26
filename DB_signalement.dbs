@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Hopital" id="Project-1e27" database="PostgreSQL" >
+	<comment><![CDATA[Conception base]]></comment>
+	<schema name="hopital" >
+		<table name="categorie" prior="cayegorie" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<index name="pk_categorie" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="chambre" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<column name="idcategorie" type="integer" jt="4" />
+			<index name="pk_chambre" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_chambre_categorie" to_schema="hopital" to_table="categorie" >
+				<fk_column name="idcategorie" pk="id" />
+			</fk>
+		</table>
+		<table name="docteur" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="integer" jt="4" />
+			<column name="idniveau" type="integer" jt="4" />
+			<index name="pk_docteur" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_docteur_niveau" to_schema="hopital" to_table="niveau" >
+				<fk_column name="idniveau" pk="id" />
+			</fk>
+		</table>
+		<table name="facture" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idhospitalisation" type="integer" jt="4" />
+			<column name="montant" type="double precision" jt="3" />
+			<index name="pk_facture" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_facture" to_schema="hopital" to_table="hospitalisation" >
+				<fk_column name="idhospitalisation" pk="id" />
+			</fk>
+		</table>
+		<table name="hospitalisation" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idpatient" type="integer" jt="4" />
+			<column name="idchambre" type="integer" jt="4" />
+			<column name="idmaladie" type="integer" jt="4" />
+			<column name="date entree" type="date" jt="91" />
+			<column name="iddocteur" type="integer" jt="4" />
+			<index name="pk_hospitalisation" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_hospitalisation_chambre" to_schema="hopital" to_table="chambre" >
+				<fk_column name="idchambre" pk="id" />
+			</fk>
+			<fk name="fk_hospitalisation_patient" to_schema="hopital" to_table="patient" >
+				<fk_column name="idpatient" pk="id" />
+			</fk>
+			<fk name="fk_hospitalisation_maladie" to_schema="hopital" to_table="maladie" >
+				<fk_column name="idmaladie" pk="id" />
+			</fk>
+			<fk name="fk_hospitalisation_docteur" to_schema="hopital" to_table="docteur" >
+				<fk_column name="iddocteur" pk="id" />
+			</fk>
+		</table>
+		<table name="maladie" prior="po" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<index name="pk_maladie" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="maladie-patient" prior="maladie-app" >
+			<column name="idpatient" type="integer" jt="4" />
+			<fk name="fk_maladie-patient_patient" to_schema="hopital" to_table="patient" >
+				<fk_column name="idpatient" pk="id" />
+			</fk>
+			<fk name="fk_maladie-patient_maladie" to_schema="hopital" to_table="maladie" >
+				<fk_column name="idpatient" pk="id" />
+			</fk>
+		</table>
+		<table name="niveau" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<column name="niveau" type="integer" jt="4" />
+			<index name="pk_niveau" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="patient" prior="p" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<column name="prenom" type="varchar" length="50" jt="12" />
+			<column name="date de naissance" type="date" jt="91" />
+			<column name="sexe" type="char" length="1" jt="1" />
+			<index name="pk_patient" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="sortie" prior="tbl" >
+			<column name="date" type="date" jt="91" />
+			<column name="idhospitalisation" type="integer" jt="4" />
+			<fk name="fk_sortie_hospitalisation" to_schema="hopital" to_table="hospitalisation" >
+				<fk_column name="idhospitalisation" pk="id" />
+			</fk>
+		</table>
+		<table name="transfert" prior="tr" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idpatient" type="integer" jt="4" />
+			<column name="idchambre" type="integer" jt="4" />
+			<column name="datedebut" type="date" jt="91" />
+			<column name="datesortie" type="date" jt="91" />
+			<index name="pk_transfert" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_transfert_patient" to_schema="hopital" to_table="patient" >
+				<fk_column name="idpatient" pk="id" />
+			</fk>
+			<fk name="fk_transfert_chambre" to_schema="hopital" to_table="chambre" >
+				<fk_column name="idchambre" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<schema name="signalementrojo" >
+		<table name="admin" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<column name="mdp" type="varchar" length="255" jt="12" />
+			<column name="mail" type="varchar" length="100" jt="12" />
+			<index name="pk_tbl" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="chefregion" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<column name="mdp" type="varchar" length="255" jt="12" />
+			<column name="mail" type="varchar" length="100" jt="12" />
+			<column name="idreg" type="integer" jt="4" />
+			<index name="pk_chefregion" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_chefregion_region" to_schema="signalementrojo" to_table="region" >
+				<fk_column name="idreg" pk="id" />
+			</fk>
+		</table>
+		<table name="detailsignalement" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idsign" type="integer" jt="4" />
+			<column name="photos" type="varchar" length="255" jt="12" />
+			<index name="pk_detailsignalement" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_detailsignalement" to_schema="signalementrojo" to_table="signalement" >
+				<fk_column name="idsign" pk="id" />
+			</fk>
+		</table>
+		<table name="notification" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idsigntermine" type="integer" jt="4" />
+			<column name="vue" type="integer" jt="4" />
+			<index name="pk_notification" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_notification" to_schema="signalementrojo" to_table="signalementtermine" >
+				<fk_column name="idsigntermine" pk="id" />
+			</fk>
+		</table>
+		<table name="region" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<index name="pk_region" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="signalement" prior="z" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idtype" type="integer" jt="4" />
+			<column name="commentaire" type="text" jt="12" />
+			<column name="dates" type="date" jt="91" />
+			<column name="x" type="decimal" jt="3" />
+			<column name="y" type="bit" jt="-7" />
+			<column name="idutilisateur" type="integer" jt="4" />
+			<index name="pk_signalement" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_signalement_typesignalement" to_schema="signalementrojo" to_table="typesignalement" >
+				<fk_column name="idtype" pk="id" />
+			</fk>
+			<fk name="fk_signalement_utilisateur" to_schema="signalementrojo" to_table="utilisateur" >
+				<fk_column name="idutilisateur" pk="id" />
+			</fk>
+		</table>
+		<table name="signalementcorbeille" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idsign" type="integer" jt="4" />
+			<column name="dates" type="date" jt="91" />
+			<index name="pk_signalementcorbeille" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_signalementcorbeille" to_schema="signalementrojo" to_table="signalement" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="signalementtermine" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idsignv" prior="idsign" type="integer" jt="4" />
+			<column name="dates" type="date" jt="91" />
+			<column name="budget" type="decimal" jt="3" />
+			<index name="pk_signalementtermine" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_signalementtermine" to_schema="signalementrojo" to_table="signalementvalide" >
+				<fk_column name="idsignv" pk="id" />
+			</fk>
+		</table>
+		<table name="signalementvalide" prior="tbl" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="idsign" type="integer" jt="4" />
+			<column name="idreg" type="integer" jt="4" />
+			<index name="pk_signalementvalide" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_signalementvalide_region" to_schema="signalementrojo" to_table="region" >
+				<fk_column name="idreg" pk="id" />
+			</fk>
+		</table>
+		<table name="typesignalement" prior="typesignelement" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<index name="pk_typesignalement" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="utilisateur" prior="u" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="nom" type="varchar" length="50" jt="12" />
+			<column name="mdp" type="varchar" length="255" jt="12" />
+			<column name="mail" type="varchar" length="100" jt="12" />
+			<index name="pk_utilisateur" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-941" show_relation="columns" >
+		<entity schema="hopital" name="categorie" color="C1D8EE" x="80" y="128" />
+		<entity schema="hopital" name="chambre" color="C1D8EE" x="48" y="304" />
+		<entity schema="hopital" name="docteur" color="C1D8EE" x="656" y="400" />
+		<entity schema="hopital" name="facture" color="C1D8EE" x="576" y="752" />
+		<entity schema="hopital" name="hospitalisation" color="C1D8EE" x="256" y="480" />
+		<entity schema="hopital" name="maladie" color="C1D8EE" x="1168" y="48" />
+		<entity schema="hopital" name="maladie-patient" color="C1D8EE" x="1072" y="464" />
+		<entity schema="hopital" name="niveau" color="C1D8EE" x="352" y="256" />
+		<entity schema="hopital" name="patient" color="C1D8EE" x="768" y="128" />
+		<entity schema="hopital" name="sortie" color="C1D8EE" x="912" y="560" />
+		<entity schema="hopital" name="transfert" color="C1D8EE" x="1008" y="768" />
+		<callout x="48" y="80" pointer="Round" >
+			<comment><![CDATA[DbSchema is disconnected from the database.
+New designed tables will be saved to project file and later can be create in any database.
+Right-click the layout to create new tables. Drop this callout from its context menu.]]></comment>
+		</callout>
+	</layout>
+	<layout name="signalement" id="Layout-21c4" show_relation="columns" >
+		<comment><![CDATA[DB_Signalement]]></comment>
+		<entity schema="signalementrojo" name="admin" color="C1D8EE" x="96" y="48" />
+		<entity schema="signalementrojo" name="chefregion" color="C1D8EE" x="352" y="400" />
+		<entity schema="signalementrojo" name="detailsignalement" color="C1D8EE" x="912" y="368" />
+		<entity schema="signalementrojo" name="notification" color="C1D8EE" x="1216" y="464" />
+		<entity schema="signalementrojo" name="region" color="C1D8EE" x="80" y="240" />
+		<entity schema="signalementrojo" name="signalement" color="C1D8EE" x="576" y="720" />
+		<entity schema="signalementrojo" name="signalementcorbeille" color="C1D8EE" x="48" y="624" />
+		<entity schema="signalementrojo" name="signalementtermine" color="C1D8EE" x="1008" y="64" />
+		<entity schema="signalementrojo" name="signalementvalide" color="C1D8EE" x="1120" y="720" />
+		<entity schema="signalementrojo" name="typesignalement" color="C1D8EE" x="752" y="240" />
+		<entity schema="signalementrojo" name="utilisateur" color="C1D8EE" x="400" y="96" />
+	</layout>
+</project>
