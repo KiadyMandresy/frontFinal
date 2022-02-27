@@ -17,7 +17,7 @@ class Header extends Component{
             method: "DELETE"
         };
 
-         await fetch("http://localhost:2004/tokenFront/"+localStorage.getItem("token"),options).then((res)=>{
+         await fetch("http://test-rojo.herokuapp.com/tokenFront/"+localStorage.getItem("token"),options).then((res)=>{
            
                 if(res.ok)
                 {
@@ -37,7 +37,7 @@ class Header extends Component{
     }
     
     componentDidMount(){
-        fetch("http://localhost:2004/token/"+localStorage.getItem("token")).then((res)=>{
+        fetch("http://test-rojo.herokuapp.com/token/"+localStorage.getItem("token")).then((res)=>{
             if(res.ok)
             {
                 return res.json();

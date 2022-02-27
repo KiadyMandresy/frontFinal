@@ -27,7 +27,7 @@ class Login extends Component{
     }
     async loginFonction(event)
     {
-        fetch("http://localhost:2004/chefRegions/"+this.state.mail+"/"+this.state.mdp).then((res)=>{
+        fetch("http://test-rojo.herokuapp.com/chefRegions/"+this.state.mail+"/"+this.state.mdp).then((res)=>{
             if(res.ok){
                 return res.json();
                 console.log(res);
