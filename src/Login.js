@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
-import {Button, Container, FormGroup , Input , Form } from 'reactstrap';
+import {Button, Container, FormGroup , Input , Form ,Alert } from 'reactstrap';
+import Popup from 'react-popup';
 class Login extends Component{  
     constructor(props){
         super(props);
@@ -44,6 +45,7 @@ class Login extends Component{
             {
                 this.setState({
                     erreur:data.erreur});
+                    this.props.Popup.alert(data.erreur);
             }
         })
     }
@@ -57,7 +59,7 @@ class Login extends Component{
               <div id="nav">
               </div>
               <div id="aside">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" >
                   
                         <div class="login-wrap p-4 p-md-5">
                     <div class="icon d-flex align-items-center justify-content-center">
@@ -74,12 +76,12 @@ class Login extends Component{
                     <div class="form-group">
                         <button type="submit" class="form-control btn btn-primary rounded submit px-3" onClick={this.loginFonction}>Connection</button>
                     </div>
-                    <br></br>
-                  <p className='erreur'> {this.state.erreur} </p> 
+                    <center><p className='erreur'> {this.state.erreur} </p> </center>
                 
                 </div>
                     
                 </div>
+              
               </div>
               <div id="quatre"> </div>
 
