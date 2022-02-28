@@ -47,9 +47,9 @@ class Header extends Component{
         .then((data)=>{
             if(data.erreur==0)
             {
-                this.setState({region: data.region});
+                this.setState({region: data.rehion});
                 const ac="/Accueil/"+data.chef.id;
-                console.log(data.region);
+                console.log(data.rehion);
                 this.setState({accueil:ac});
             }
             else if(data.erreur==1)
