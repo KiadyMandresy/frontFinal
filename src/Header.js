@@ -17,7 +17,7 @@ class Header extends Component{
             method: "DELETE"
         };
 
-         await fetch("http://test-rojo.herokuapp.com/tokenFront/"+localStorage.getItem("token"),options).then((res)=>{
+         await fetch("https://test-rojo.herokuapp.com/tokenFront/"+localStorage.getItem("token"),options).then((res)=>{
            
                 if(res.ok)
                 {
@@ -49,6 +49,7 @@ class Header extends Component{
             {
                 this.setState({region: data.region});
                 const ac="/Accueil/"+data.chef.id;
+                console.log(data.region);
                 this.setState({accueil:ac});
             }
             else if(data.erreur==1)
