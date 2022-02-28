@@ -82,7 +82,6 @@ class Accueil extends Component{
             .then((data1)=> {
                 this.setState({signs:data1.lise_Region});
                 console.log(this.state.signs);
-                console.log(this.state.signs[0].type);
                 this.setState({ready:false});
             });
           }

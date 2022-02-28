@@ -146,10 +146,10 @@
 				<fk_column name="idreg" pk="id" />
 			</fk>
 		</table>
-		<table name="detailsignalement1" prior="detailsignalement" >
+		<table name="detailsignalement" prior="tbl" >
 			<column name="id" type="integer" jt="4" mandatory="y" />
 			<column name="idsign" type="integer" jt="4" />
-			<column name="photos" type="text" length="255" jt="12" />
+			<column name="photos" type="varchar" length="255" jt="12" />
 			<index name="pk_detailsignalement" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -266,7 +266,7 @@ Right-click the layout to create new tables. Drop this callout from its context 
 		<comment><![CDATA[DB_Signalement]]></comment>
 		<entity schema="signalementrojo" name="admin" color="C1D8EE" x="96" y="48" />
 		<entity schema="signalementrojo" name="chefregion" color="C1D8EE" x="352" y="400" />
-		<entity schema="signalementrojo" name="detailsignalement1" color="C1D8EE" x="912" y="368" />
+		<entity schema="signalementrojo" name="detailsignalement" color="C1D8EE" x="912" y="368" />
 		<entity schema="signalementrojo" name="notification" color="C1D8EE" x="1216" y="464" />
 		<entity schema="signalementrojo" name="region" color="C1D8EE" x="80" y="240" />
 		<entity schema="signalementrojo" name="signalement" color="C1D8EE" x="576" y="720" />
