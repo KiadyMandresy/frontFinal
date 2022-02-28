@@ -45,11 +45,18 @@ class Header extends Component{
             throw res;
         })
         .then((data)=>{
-          this.setState({region: data.rehion});
+            if(data.erreur==0)
+            {
+                this.setState({region: data.region});
                 const ac="/Accueil/"+data.chef.id;
-                console.log(data.rehion);
+                console.log(data.region);
                 this.setState({accueil:ac});
-            
+            }
+            else if(data.erreur==1)
+            {
+                localStorage.removeItem("token");
+                this.props.history.push("/login");
+            }
         });
     }
     
