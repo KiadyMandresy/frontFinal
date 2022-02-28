@@ -29,6 +29,17 @@ class Accueil extends Component{
         statut:"",
         ready:true
       };
+      this.terminer=this.terminer.bind(this);
+    }
+    async terminer(e)
+    {
+        await fetch("https://test-rojo.herokuapp.com/signalementTermine/1/14777").then((res)=>{
+            if(res.ok)
+            {
+              return res.json();
+            }
+            throw res;
+        })
     }
     onChangeDate1(e)
     {
@@ -49,7 +60,7 @@ class Accueil extends Component{
       this.setState({couleur:coul});
      /* let {id} = useParams();
       console.log(id);*/
-      fetch("http://localhost:2004/token/"+localStorage.getItem("token")).then((res)=>{
+      fetch("https://test-rojo.herokuapp.com/token/"+localStorage.getItem("token")).then((res)=>{
           if(res.ok)
           {
             return res.json();
@@ -60,7 +71,7 @@ class Accueil extends Component{
           if(data.erreur==0)
           {
               this.setState({id:data.chef.idReg});
-              fetch("http://localhost:2004/signalementRegion/"+data.chef.idReg+"/1").then((res)=> {
+              fetch("https://test-rojo.herokuapp.com/signalementRegion/"+data.chef.idReg+"/1").then((res)=> {
        
                 if(res.ok)
                 {
@@ -81,7 +92,7 @@ class Accueil extends Component{
           }
       });
      
-      fetch("http://localhost:2004/typeSignalements").then((res)=> {
+      fetch("https://test-rojo.herokuapp.com/typeSignalements").then((res)=> {
         if(res.ok)
         {
           return res.json();
@@ -108,6 +119,8 @@ class Accueil extends Component{
         <Popup>
            <p> Statut: { sign.statut} </p>
            <p> Type: {sign.type}</p>
+           <p> date: { sign.dateS} </p>
+           <p> utilisateur: {sign.nom}</p>
         </Popup>
     </Marker>
      );
@@ -182,16 +195,19 @@ class Accueil extends Component{
                       <thead>
                         <tr>
                           <th>Type</th>
-                          <th>Date</th>
+                          <th>Description</th>
                           <th>Status</th>
+                          <th></th>
+                          
                         </tr>  
                       </thead>
                       <tbody>
                       { signs.map((sign) => 
         <tr>
           <td>{sign.type}</td>
-          <td>{sign.dateS}</td>
+          <td>{sign.commentaire}</td>
           <td class="font-weight-medium"><div class="badge badge-success">{sign.statut}</div></td>
+          <td > <button onClick={this.terminer(sign.id)}>terminer</button></td>
         </tr>
      )
                       }
