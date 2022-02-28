@@ -6,7 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Leaflet from './Leaflet';
 import $ from 'jquery'
-
+import {useParams} from 'react-router-dom';
 class Accueil extends Component{
     toggleKiady() {
         $("#collapseExample").slideToggle()
@@ -15,12 +15,109 @@ class Accueil extends Component{
     toggleManapotra() {
         $("#lol").fadeToggle()
     }
-
-   
+    constructor(props)
+    {
+      super(props);
+      this.state={
+        signs:[],
+        couleur:[],
+        types:[],
+        date1:" ",
+        date2:" ",
+        id:0,
+        typeSign:"",
+        statut:"",
+        ready:true
+      };
+    }
+    onChangeDate1(e)
+    {
+      this.setState({date1:e.target.value })
+    }
+    onChangeDate2(e)
+    {
+      this.setState({date2:e.target.value })
+    }
+   componentDidMount()
+   {
+     const col=["#7FFFD4","#00FF00","#F08080","#A0522D","#EE82EE"]
+      const coul=new Array();
+      for(let i=0;i<10;i++)
+      {
+        coul.push(col[i]);
+      }
+      this.setState({couleur:coul});
+     /* let {id} = useParams();
+      console.log(id);*/
+      fetch("http://localhost:2004/token/"+localStorage.getItem("token")).then((res)=>{
+          if(res.ok)
+          {
+            return res.json();
+          }
+          throw res;
+      })
+      .then((data)=>{
+          if(data.erreur==0)
+          {
+              this.setState({id:data.chef.idReg});
+              fetch("http://localhost:2004/signalementRegion/"+data.chef.idReg+"/1").then((res)=> {
+       
+                if(res.ok)
+                {
+                  return res.json();
+                }
+                throw res;
+            })
+            .then((data1)=> {
+                this.setState({signs:data1.lise_Region});
+                console.log(this.state.signs);
+                console.log(this.state.signs[0].type);
+                this.setState({ready:false});
+            });
+          }
+          else if(data.erreur==1)
+          {
+              this.props.history.push("/login");
+          }
+      });
+     
+      fetch("http://localhost:2004/typeSignalements").then((res)=> {
+        if(res.ok)
+        {
+          return res.json();
+        }
+        throw res;
+    })
+    .then((data)=> {
+        this.setState({types:data});
+    });
+   }
 
     render()
     {
-      const position = [-18.234567,47.2345677]
+      const position = [-18.234567,47.2345677];
+      const{signs,ready}=this.state;
+      if(ready)
+      {
+        return(
+          <p> loding...</p>
+        )
+      }
+      const marker=signs.map((sign)=> 
+        <Marker position={[sign.x,sign.y]}>
+        <Popup>
+           <p> Statut: { sign.statut} </p>
+           <p> Type: {sign.type}</p>
+        </Popup>
+    </Marker>
+     );
+     const tab=signs.map((sign)=> 
+        <tr>
+          <td>sign.type</td>
+          <td>sign.dateS</td>
+          <td class="font-weight-medium"><div class="badge badge-success"></div></td>
+        </tr>
+     );
         return (
             <div>
                 <Header/>
@@ -38,12 +135,16 @@ class Accueil extends Component{
                                                     <div className="col-md-3"> Date min:  <Input type="text" placeholder="yyy-mm-dd" className="form-control"/> </div>
                                                     <div className="col-md-3"> Date max: <Input type="text" className="form-control" placeholder="yyy-mm-dd"/> </div>
                                                     <div className="col-md-3"> Type :  <select value="" className="form-control" placeholder="">
-                                                         <option value="">Eboulement</option>
-                                                         <option  value="">Desctruction</option>
+                                                        { this.state.types.map((type)=>
+
+                                                            <option value={type.id}>{type.nom}</option>
+                                                        )
+                                                        }
+                                                         
                                                     </select> </div>
                                                     <div className="col-md-3"> Statut:<select value="" className="form-control" placeholder="">
-                                                         <option value="">Non termine</option>
-                                                         <option  value="">Termine</option>
+                                                         <option value="en cours">en cours</option>
+                                                         <option  value="termine">termine</option>
                                                     </select>  </div>
                                                     <div className="col-md-3"> <button  color="blue" className="btn-primary"> Rechercher</button></div>
                                                 </div>
@@ -63,11 +164,8 @@ class Accueil extends Component{
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={position}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+               {marker}
+               
            </MapContainer>
 
                     </div>
@@ -78,7 +176,7 @@ class Accueil extends Component{
                         
                     <div class="card">
                 <div class="card-body">
-                  <p class="card-title mb-0">Top Products</p>
+                  <p class="card-title mb-0">Signalement</p>
                   <div class="table-responsive">
                     <table class="table table-striped table-borderless">
                       <thead>
@@ -89,41 +187,15 @@ class Accueil extends Component{
                         </tr>  
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Search Engine Marketing</td>
-                          <td>21 Sep 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-                        </tr>
-                        <tr>
-                          <td>Search Engine Optimization</td>
-                          <td>13 Jun 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-                        </tr>
-                        <tr>
-                          <td>Display Advertising</td>
-                          <td>28 Sep 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                        <tr>
-                          <td>Pay Per Click Advertising</td>
-                          <td>30 Jun 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                        <tr>
-                          <td>E-Mail Marketing</td>
-                          <td>01 Nov 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-danger">Cancelled</div></td>
-                        </tr>
-                        <tr>
-                          <td>Referral Marketing</td>
-                          <td>20 Mar 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                        <tr>
-                          <td>Social media marketing</td>
-                          <td>26 Oct 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-                        </tr>
+                      { signs.map((sign) => 
+        <tr>
+          <td>{sign.type}</td>
+          <td>{sign.dateS}</td>
+          <td class="font-weight-medium"><div class="badge badge-success">{sign.statut}</div></td>
+        </tr>
+     )
+                      }
+                    
                       </tbody>
                     </table>
                   </div>
