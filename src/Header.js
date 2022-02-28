@@ -37,7 +37,7 @@ class Header extends Component{
     }
     
     componentDidMount(){
-        fetch("http://test-rojo.herokuapp.com/token/"+localStorage.getItem("token")).then((res)=>{
+        fetch("https://test-rojo.herokuapp.com/token/"+localStorage.getItem("token")).then((res)=>{
             if(res.ok)
             {
                 return res.json();
